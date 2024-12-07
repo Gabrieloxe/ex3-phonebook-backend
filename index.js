@@ -1,7 +1,7 @@
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const { generateId, validatePerson } = './helpers';
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import { validatePerson, generateId } from './helpers.js';
 
 const app = express();
 app.use(express.json());
@@ -59,7 +59,6 @@ app.get('/api/persons', (req, res) => {
 
 app.post('/api/persons', (request, response) => {
   const body = request.body;
-
   if (!validatePerson(body)) {
     response.status(400).json({
       error: 'Either the name or number is missing',
@@ -74,7 +73,7 @@ app.post('/api/persons', (request, response) => {
   }
 
   const person = {
-    id: generateId(),
+    id: generateId(persons),
     name: body.name,
     number: body.number,
   };

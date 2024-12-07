@@ -1,4 +1,4 @@
-const generateId = () => {
+export const generateId = (persons) => {
   let id = Math.floor(Math.random() * 1000000);
   const numbers = persons.map(p => p.id);
   while (numbers.includes(id)) {
@@ -7,7 +7,7 @@ const generateId = () => {
   return id;
 };
 
-const validatePerson = person => {
+export const validatePerson = person => {
   if (
     !person.name ||
     !person.number ||
@@ -19,7 +19,4 @@ const validatePerson = person => {
   return true;
 };
 
-module.exports = {
-  generateId,
-  validatePerson,
-};
+
