@@ -119,7 +119,6 @@ app.put('/api/persons/:id', (request, response) => {
 });
 
 app.delete('/api/persons/:id', (request, response) => {
-  console.log('delete request received');
   const id = Number(request.params.id);
   persons = persons.filter(p => p.id !== id);
   response.status(204).end();
