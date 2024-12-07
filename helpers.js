@@ -14,9 +14,9 @@ const validatePerson = person => {
     person.name === '' ||
     person.number === ''
   ) {
-    return true;
+    return false;
   }
-  return false;
+  return true;
 };
 
 module.exports = {

@@ -22,7 +22,7 @@ app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms :body')
 );
 
-const persons = [
+let persons = [
   {
     id: 1,
     name: 'Arto Hellas',
@@ -60,7 +60,7 @@ app.get('/api/persons', (req, res) => {
 app.post('/api/persons', (request, response) => {
   const body = request.body;
 
-  if (validatePerson(body)) {
+  if (!validatePerson(body)) {
     response.status(400).json({
       error: 'Either the name or number is missing',
     });
@@ -103,7 +103,7 @@ app.put('/api/persons/:id', (request, response) => {
 
   const body = request.body;
 
-  if (validatePerson(body)) {
+  if (!validatePerson(body)) {
     return response.status(400).json({
       error: 'Either the name or number is missing',
     });
@@ -120,6 +120,7 @@ app.put('/api/persons/:id', (request, response) => {
 });
 
 app.delete('/api/persons/:id', (request, response) => {
+  console.log('delete request received');
   const id = Number(request.params.id);
   persons = persons.filter(p => p.id !== id);
   response.status(204).end();
