@@ -38,7 +38,7 @@ app.get('/info', async (request, response) => {
     } people. </br></br> ${new Date()}`;
     response.send(info);
   } catch (error) {
-    response.status(500).send({ error: 'Failed to fetch contacts' });
+    response.status(500).send({ error });
   }
 });
 
@@ -47,7 +47,7 @@ app.get('/api/persons', async (req, res) => {
     const contacts = await getContacts();
     res.json(contacts);
   } catch (error) {
-    res.status(500).send({ error: 'Failed to fetch contacts' });
+    res.status(500).send({ error });
   }
 });
 
@@ -96,7 +96,7 @@ app.put('/api/persons/:id', async (request, response) => {
       response.status(404).send({ error: 'Contact not found' });
     }
   } catch (error) {
-    response.status(500).send({ error: 'Failed to update contact' });
+    response.status(500).send({ error });
   }
 });
 
@@ -109,7 +109,7 @@ app.delete('/api/persons/:id', async (request, response) => {
       response.status(404).send({ error: 'Contact not found' });
     }
   } catch (error) {
-    response.status(500).send({ error: 'Failed to delete contact' });
+    response.status(500).send({ error });
   }
 });
 
