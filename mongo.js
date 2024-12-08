@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { mongoUrl } from './config.js';
+import Contact from './contact.js';
 
 const connectToDatabase = async () => {
   try {
@@ -10,31 +11,6 @@ const connectToDatabase = async () => {
     throw error;
   }
 };
-
-const phoneValidator = number => {
-  const regex = /^\d{2,3}-\d+$/;
-  return regex.test(number);
-};
-
-const contactSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    minLength: 3,
-    required: true,
-  },
-  number: {
-    type: String,
-    minLength: 8,
-    required: true,
-    validate: {
-      validator: phoneValidator,
-      message: props =>
-        `${props.value} is not a valid phone number! Numbers must have a length of 8 or more and be formed of two parts separated by a hyphen (-), with the first part having two or three digits and the second part consisting of digits`,
-    },
-  },
-});
-
-const Contact = mongoose.model('Contact', contactSchema);
 
 export const createContact = async (name, number) => {
   await connectToDatabase();
