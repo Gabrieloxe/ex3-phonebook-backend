@@ -65,7 +65,7 @@ app.get('/api/persons/:id', async (request, response, next) => {
   }
 });
 
-app.post('/api/persons', async (request, response) => {
+app.post('/api/persons', async (request, response, next) => {
   const { name, number } = request.body;
 
   if (!name || !number) {
@@ -76,7 +76,7 @@ app.post('/api/persons', async (request, response) => {
     const newContact = await createContact(name, number);
     response.json(newContact);
   } catch (error) {
-    response.status(500).send({ error: 'Failed to create contact' });
+    next(error);
   }
 });
 
@@ -115,8 +115,11 @@ app.delete('/api/persons/:id', async (request, response) => {
 
 const errorHandler = (error, request, response, next) => {
   console.error(error.message);
+  console.error(error.name);
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' });
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message });
   }
   next(error);
 };
