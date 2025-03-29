@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { mongoUrl } from './config.js';
-import { Contact } from './contact.js';
+import { Contact } from './models/contact.js';
 
 const connectToDatabase = async () => {
   try {
